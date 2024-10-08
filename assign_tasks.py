@@ -33,11 +33,6 @@ def assign_tasks(factor, arrival, bonus, reward, duration, time_bonus):
         max_rewards = []
         free_processors = [processor for processor in processor_time_dict if processor_time_dict[processor] <=t]
         available_tasks = [i for i in range(len(arrival)) if (used_dict[i]==1 and arrival[i] <= t)]
-        #if free_processors:
-            #if len(schedule) < 10:
-            #    print("Free processors")
-            #    print(free_processors)
-            #    print(f"t = {t}")
         if free_processors and available_tasks:
             for processor in free_processors:
                 #if the task has not been executed, calculate the reward
@@ -47,19 +42,11 @@ def assign_tasks(factor, arrival, bonus, reward, duration, time_bonus):
                     max_rewards.append((max_task, max_reward, processor))
             max_max_tuple = max(max_rewards, key=lambda x: x[1])
             max_processor = max_max_tuple[2]
-            #if len(schedule) < 10:
-            #    print(f"added to processor {max_processor}")
             task_added = max_max_tuple[0]
-            #if len(schedule) < 10:
-            #    print(task_added)
             next_reward = max_max_tuple[1]
             schedule.append((task_added,(max_processor, t)))
-             #Update current processor time 
             processor_time_dict[max_processor] = max(processor_time_dict[max_processor],t) + duration[task_added]
-            #if len(schedule) < 10:
-            #    print(f"Processor {max_processor} next available at time {processor_time_dict[max_processor]}")
             used_dict[task_added] = 0
-            #print("Success")
             return True, next_reward, t
         else:
             return False, 0, 0 
@@ -92,13 +79,6 @@ def assign_tasks(factor, arrival, bonus, reward, duration, time_bonus):
         else:
             tasks_completed += 1
             my_reward += extra_reward
-        
-        
-        #next_task, next_reward = add_next_task(current_time)
-        #current_time = max(current_time, arrival[next_task])
-        #print(next_task, next_reward)
-        #print(my_reward)
-        #print(current_time)
     
     #print(f"I completed {tasks_completed} tasks and my bloody reward is {my_reward:.2f}")
     schedule = sorted(schedule, key=lambda x: x[0])
