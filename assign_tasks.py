@@ -52,10 +52,6 @@ def assign_tasks(factor, arrival, bonus, reward, duration, time_bonus):
             return False, 0, 0 
 
 
-                
-
-
-
 
  #   def add_next_task(t, p):
  #       current_rewards = []
